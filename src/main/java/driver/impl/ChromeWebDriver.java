@@ -21,6 +21,7 @@ public class ChromeWebDriver implements IDriver {
     chromeOptions.addArguments("--no-first-run");
     chromeOptions.addArguments("--homepage=about:blank");
     chromeOptions.addArguments("--ignore-certificate-errors");
+    chromeOptions.addArguments("--window-size=1280,720");
     chromeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 
     LoggingPreferences logPrefs = new LoggingPreferences();

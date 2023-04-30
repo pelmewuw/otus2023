@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pageobject.PageObject;
 
+import javax.security.auth.login.Configuration;
+
 public abstract class BasePage<T> extends PageObject<T> {
 
   public BasePage(WebDriver driver) {

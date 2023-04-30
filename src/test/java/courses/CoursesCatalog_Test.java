@@ -1,6 +1,7 @@
 package courses;
 
 import annotations.Driver;
+import components.CategoriesFilterComponent;
 import data.CoursesCategoryData;
 import extensions.UIExtension;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,8 @@ public class CoursesCatalog_Test {
     new MainPage(driver)
         .open()
         .clickCategoryCourseLinkByName(CoursesCategoryData.Programming)
-        .headerShouldBeSameAs("Каталог2");
+        .headerShouldBeSameAs("Каталог");
+    new CategoriesFilterComponent(driver).checkboxStatusShouldBeSameAs(CoursesCategoryData.Programming, true);
   }
 
 
