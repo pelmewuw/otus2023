@@ -1,4 +1,4 @@
-package menu;
+package lesson.menu;
 
 import annotations.Driver;
 import components.menu.HeaderMenuComponent;

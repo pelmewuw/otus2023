@@ -7,7 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import waiters.BaseWaiters;
 
-import javax.swing.*;
 
 public abstract class PageObject<T> {
 

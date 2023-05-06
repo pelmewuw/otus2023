@@ -23,6 +23,7 @@
         <thread.count>32</thread.count>
 
         <browser>chrome</browser>
+        <browser.version>113.0.5672.63</browser.version>
         <webdriver.base.url>https://otus.ru</webdriver.base.url>
         <test.project.language>RU</test.project.language>
 
@@ -99,6 +100,7 @@
 
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
+                        <browser.version>${browser.version}</browser.version>
                         <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
                         </webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>

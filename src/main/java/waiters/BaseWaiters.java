@@ -27,4 +27,8 @@ public class BaseWaiters {
   public boolean waitVisibleElement(WebElement element){
     return waitForCondition(ExpectedConditions.visibilityOf(element));
   }
+
+  public boolean waitInVisibleElement(WebElement element){
+    return waitForCondition(ExpectedConditions.invisibilityOf(element));
+  }
 }

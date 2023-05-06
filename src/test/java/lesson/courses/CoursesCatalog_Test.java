@@ -1,4 +1,4 @@
-package courses;
+package lesson.courses;
 
 import annotations.Driver;
 import components.CategoriesFilterComponent;

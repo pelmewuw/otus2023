@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobject.PageObject;
 
-import javax.security.auth.login.Configuration;
 
 public abstract class BasePage<T> extends PageObject<T> {
 
@@ -37,5 +37,14 @@ public abstract class BasePage<T> extends PageObject<T> {
   public T open() {
     driver.get(baseUrl + getPath());
     return (T) this;
+  }
+
+
+  @FindBy(css = ".cookies__button")
+  private WebElement acceptCookiesBtn;
+  public void acceptCookies(){
+    baseWaiters.waitForCondition(ExpectedConditions.elementToBeClickable(acceptCookiesBtn));
+    if (acceptCookiesBtn.isDisplayed()) acceptCookiesBtn.click();
+    baseWaiters.waitInVisibleElement(acceptCookiesBtn);
   }
 }

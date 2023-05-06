@@ -18,7 +18,7 @@ public class HeaderMenuComponent extends BaseComponent<BaseComponent> {
 
   public MenuPopup moveToHeaderMenu(HeaderMenuData headerMenuData){
     String selector = String.format(headerMenuSelectorTemplate, headerMenuData.name().toLowerCase(Locale.ROOT));
-    this.actions.moveToElement($(By.cssSelector(selector))).build().perform();
+    actions.moveToElement($(By.cssSelector(selector))).build().perform();
     return new MenuPopup(driver);
   }
 }

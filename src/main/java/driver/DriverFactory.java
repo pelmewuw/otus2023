@@ -2,9 +2,9 @@ package driver;
 
 import driver.impl.ChromeWebDriver;
 import driver.impl.FirefoxWebDriver;
+import driver.impl.OperaWebDriver;
 import exceptions.DriverTypeNotSupported;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.util.Locale;
@@ -26,7 +26,7 @@ public class DriverFactory implements IDriverFactory {
       }
       case "opera": {
         WebDriverManager.operadriver().setup();
-        return new EventFiringWebDriver(new FirefoxWebDriver().newDriver());
+        return new EventFiringWebDriver(new OperaWebDriver().newDriver());
       }
       default:
         try {

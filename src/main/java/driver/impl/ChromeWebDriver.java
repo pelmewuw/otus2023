@@ -21,7 +21,7 @@ public class ChromeWebDriver implements IDriver {
     chromeOptions.addArguments("--no-first-run");
     chromeOptions.addArguments("--homepage=about:blank");
     chromeOptions.addArguments("--ignore-certificate-errors");
-    chromeOptions.addArguments("--window-size=1280,720");
+    chromeOptions.addArguments("--start-maximized");
     chromeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 
     LoggingPreferences logPrefs = new LoggingPreferences();
@@ -34,7 +34,6 @@ public class ChromeWebDriver implements IDriver {
       } catch (DriverTypeNotSupported ex) {
         ex.printStackTrace();
       }
-
       return new ChromeDriver(chromeOptions);
     } else
       return new RemoteWebDriver(getRemoteUrl(), chromeOptions);
