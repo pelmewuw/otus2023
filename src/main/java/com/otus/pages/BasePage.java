@@ -41,13 +41,4 @@ public abstract class BasePage<T> extends PageObject<T> {
     driver.get(baseUrl + getPath());
     return (T) this;
   }
-
-
-  @FindBy(css = ".cookies__button")
-  private WebElement acceptCookiesBtn;
-  public void acceptCookies(){
-    baseWaiters.waitForCondition(ExpectedConditions.elementToBeClickable(acceptCookiesBtn));
-    if (acceptCookiesBtn.isDisplayed()) acceptCookiesBtn.click();
-    baseWaiters.waitInVisibleElement(acceptCookiesBtn);
-  }
 }
