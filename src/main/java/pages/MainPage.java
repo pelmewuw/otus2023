@@ -1,7 +1,6 @@
 package pages;
 
-
-import  annotations.Path;
+import annotations.Path;
 import org.openqa.selenium.WebDriver;
 
 @Path("/")

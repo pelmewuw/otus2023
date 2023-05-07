@@ -11,7 +11,7 @@ import java.net.URL;
 
 public interface IDriver {
   String REMOTE_URL = System.getProperty("webdriver.remote.url");
-//  boolean HEADLESS = Boolean.valueOf(System.getProperty("webdriver.headless"));
+  //  boolean HEADLESS = Boolean.valueOf(System.getProperty("webdriver.headless"));
 
   public WebDriver newDriver();
 
