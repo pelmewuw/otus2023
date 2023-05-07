@@ -11,11 +11,11 @@ import java.util.Locale;
 
 public class DriverFactory implements IDriverFactory {
 
-  private String browserType = System.getProperty("browser").toLowerCase(Locale.ROOT);
+  //  private String browserType = System.getProperty("browser").toLowerCase(Locale.ROOT);
 
   @Override
   public EventFiringWebDriver getDriver(String browserName) {
-    switch (this.browserType) {
+    switch (browserName) {
       case "chrome": {
         WebDriverManager.chromedriver().setup();
         return new EventFiringWebDriver(new ChromeWebDriver().newDriver());
@@ -30,7 +30,7 @@ public class DriverFactory implements IDriverFactory {
       }
       default:
         try {
-          throw new DriverTypeNotSupported(this.browserType);
+          throw new DriverTypeNotSupported(browserName);
         } catch (DriverTypeNotSupported ex) {
           ex.printStackTrace();
           return null;

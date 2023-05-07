@@ -11,7 +11,7 @@ public class CommonSteps {
   @Inject
   public GuiseScooped guiseScooped;
 
-  @Пусть("Открываем браузер {string}")
+  @Пусть("Открыть браузер {string}")
   public void openBrowser(String browserName){
     guiseScooped.driver = new DriverFactory().getDriver(browserName);
   }

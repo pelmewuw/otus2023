@@ -1,14 +1,15 @@
-package pages;
+package com.otus.pages;
 
-
-import  annotations.Path;
-import org.openqa.selenium.WebDriver;
+import com.google.inject.Inject;
+import com.otus.annotations.Path;
+import com.otus.di.GuiseScooped;
 
 @Path("/")
 public class MainPage extends BasePage<MainPage> {
 
-  public MainPage(WebDriver driver) {
-    super(driver);
+  @Inject
+  public MainPage(GuiseScooped guiseScooped) {
+    super(guiseScooped);
   }
 
 }

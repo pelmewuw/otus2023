@@ -4,7 +4,6 @@ import com.otus.di.GuiseScooped;
 import com.otus.listeners.MouseListener;
 import com.otus.pages.MainPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
-  public CourseItemComponent(WebDriver driver) {
-    super(driver);
+  public CourseItemComponent(GuiseScooped guiseScooped) {
+    super(guiseScooped);
   }
 
   private String courseNameTemplateLocator = "//div[contains(text(),'%s')]";

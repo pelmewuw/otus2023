@@ -12,7 +12,6 @@ import com.otus.pageobject.PageObject;
 
 
 public abstract class BasePage<T> extends PageObject<T> {
-
   @Inject
   public BasePage(GuiseScooped guiseScooped) {
     super(guiseScooped.driver);
@@ -37,8 +36,7 @@ public abstract class BasePage<T> extends PageObject<T> {
 
   }
 
-  public T open() {
+  public void open() {
     driver.get(baseUrl + getPath());
-    return (T) this;
   }
 }

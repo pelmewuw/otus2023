@@ -108,32 +108,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
-                    <forkCount>${forkCount}</forkCount>
-                    <reuseForks>${reuseForks}</reuseForks>
-                    <parallel>${parallel}</parallel>
-                    <perCoreThreadCount>${perCoreThreadCount}</perCoreThreadCount>
-                    <useUnlimitedThreads>${useUnlimitedThreads}</useUnlimitedThreads>
-                    <threadCountMethods>${thread.count}</threadCountMethods>
-
-                    <!--          <systemProperties>-->
-                    <!--            <property>-->
-                    <!--              <name>junit.jupiter.extensions.autodetection.enabled</name>-->
-                    <!--              <value>true</value>-->
-                    <!--            </property>-->
-                    <!--          </systemProperties>-->
-
-                    <systemPropertyVariables>
-                        <browser>${browser}</browser>
-                        <browser.version>${browser.version}</browser.version>
-                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
-                        </webdriver.timeouts.implicitlywait>
-                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
-                        <test.project.status>test</test.project.status>
-                        <test.project.language>${test.project.language}</test.project.language>
-                    </systemPropertyVariables>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
+                    <systemProperties>
+                        <base.url>https://otus.ru</base.url>
+                        <browser>chrome</browser>
+                    </systemProperties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -164,17 +142,34 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.7.2.1</version>
-                <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>4.7.3</version>
-                    </dependency>
-                </dependencies>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <configLocation>${project.build.sourceDirectory}/../resources/checkstyle.xml</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                    <includeTests>true</includeTests>
+                    <omitVisitors>UnreadFields</omitVisitors>
+                </configuration>
                 <executions>
                     <execution>
                         <id>analyze-compile</id>
