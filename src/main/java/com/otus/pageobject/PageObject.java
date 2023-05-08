@@ -1,6 +1,7 @@
 package com.otus.pageobject;
 
 import com.google.inject.Inject;
+import com.otus.actions.BaseActions;
 import com.otus.di.GuiseScooped;
 import com.otus.waiters.BaseWaiters;
 import org.openqa.selenium.By;
@@ -12,19 +13,22 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class PageObject<T> {
 
-  protected WebDriver driver;
-  protected Actions actions;
-  protected BaseWaiters baseWaiters;
+  //  protected WebDriver driver;
+  @Inject
+  protected BaseActions actions;
+  @Inject
+  public GuiseScooped guiseScooped;
+  @Inject
+  public BaseWaiters baseWaiters;
 
-  public PageObject(WebDriver driver) {
-    this.driver = driver;
-    this.actions = new Actions(driver);
-    this.baseWaiters = new BaseWaiters(driver);
-    PageFactory.initElements(driver, this);
+  public PageObject(GuiseScooped guiseScooped) {
+    this.guiseScooped = guiseScooped;
+    this.actions = new BaseActions(this.guiseScooped);
+    PageFactory.initElements(this.guiseScooped.driver, this);
   }
 
   public WebElement $(By locator){
     return
-        driver.findElement(locator);
+        this.guiseScooped.driver.findElement(locator);
   }
 }

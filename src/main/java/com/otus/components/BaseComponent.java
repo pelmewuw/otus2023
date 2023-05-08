@@ -9,7 +9,7 @@ public abstract class BaseComponent<T> extends PageObject<T> {
 
   @Inject
   public BaseComponent(GuiseScooped guiseScooped){
-    super(guiseScooped.driver);
+    super(guiseScooped);
   }
 
 }

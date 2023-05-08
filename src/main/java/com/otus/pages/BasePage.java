@@ -1,6 +1,7 @@
 package com.otus.pages;
 
 import com.google.inject.Inject;
+import com.otus.actions.BaseActions;
 import com.otus.annotations.Path;
 import com.otus.di.GuiseScooped;
 import org.junit.jupiter.api.Assertions;
@@ -11,10 +12,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.otus.pageobject.PageObject;
 
 
-public abstract class BasePage<T> extends PageObject<T> {
+public abstract class BasePage<T> extends BaseActions<T> {
   @Inject
   public BasePage(GuiseScooped guiseScooped) {
-    super(guiseScooped.driver);
+    super(guiseScooped);
   }
 
   private String baseUrl = System.getProperty("webdriver.base.url", "https://otus.ru");
@@ -36,7 +37,9 @@ public abstract class BasePage<T> extends PageObject<T> {
 
   }
 
-  public void open() {
-    driver.get(baseUrl + getPath());
+  public T open() {
+    guiseScooped.driver.get(baseUrl + getPath());
+
+    return (T) this;
   }
 }

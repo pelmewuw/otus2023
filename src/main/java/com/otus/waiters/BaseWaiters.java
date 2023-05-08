@@ -1,5 +1,8 @@
 package com.otus.waiters;
 
+import com.google.inject.Inject;
+import com.otus.di.GuiseScooped;
+import io.cucumber.java.sl.In;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +14,12 @@ public class BaseWaiters {
 
   private WebDriverWait webDriverWait;
 
-  public BaseWaiters(WebDriver driver){
-    this.webDriverWait = new WebDriverWait(driver, Integer.parseInt((System.getProperty("waiter_timeout_second", "5"))));
+  @Inject
+  private GuiseScooped guiseScooped;
+
+  @Inject
+  public BaseWaiters(GuiseScooped guiseScooped){
+    this.webDriverWait = new WebDriverWait(guiseScooped.driver, Integer.parseInt((System.getProperty("waiter_timeout_second", "5"))));
   }
 
   public boolean waitForCondition(ExpectedCondition expectedCondition){
