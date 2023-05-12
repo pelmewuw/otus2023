@@ -1,6 +1,5 @@
 package com.otus.steps.components;
 
-
 import com.google.inject.Inject;
 import com.otus.components.CourseItemComponent;
 import io.cucumber.java.ru.Если;

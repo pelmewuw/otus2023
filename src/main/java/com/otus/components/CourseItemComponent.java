@@ -8,10 +8,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -25,7 +25,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     super(guiseScooped);
   }
 
-  @FindBy(css=".lessons__new-item")
+  @FindBy(css = ".lessons__new-item")
   private List<WebElement> courseItemsList;
 
   private String courseNameTemplateLocator = "//div[contains(text(),'%s')]";
@@ -36,8 +36,8 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     try {
       moveAndClickElement($(By.xpath(locator)));
       return new MainPage(guiseScooped);
-    } catch (UnsupportedOperationException e) {
-      throw new UnsupportedOperationException("Курс: \"" + courseName + "\" не найден");
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("Курс: \"" + courseName + "\" не найден");
     }
 
   }
@@ -60,7 +60,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
               return null;
           }
         }).get();
-    System.out.println("Choose date is: " + el.getText());
+    System.out.println("Выбран курс: " + el.getText().replaceAll("Рассрочка|Выгодное предложение|Успеть!", ""));
     moveAndClickElement(el);
   }
 
@@ -72,7 +72,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     Pattern dayPattern = Pattern.compile("[0-3]?[0-9]");
     Matcher dayMatcher = dayPattern.matcher(stringDate);
-    Pattern monthPattern = Pattern.compile("\\b(янв)|(фев)|(мар)|(апр)|(мая)|(июн)|(июл)|(авг)|(сен)|(окт)|(ноя)|(дек)");
+    Pattern monthPattern = Pattern.compile("января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря");
     Matcher monthMatcher = monthPattern.matcher(stringDate);
 
     if (dayMatcher.find()) {
@@ -84,12 +84,11 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     String result = year + "-" + month + "-" + (day > 9 ? day : "0" + day);
 
-
-    return LocalDate.parse(result, DateTimeFormatter.ofPattern("uuuu-MMM-dd").withLocale(new Locale("ru", "RU")));
+    return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMMM-dd").withLocale(new Locale("ru", "RUS")));
 
   }
 
-  public void moveAndClickElement(WebElement element){
+  public void moveAndClickElement(WebElement element) {
     MouseListener mouseListener = new MouseListener();
     mouseListener.scrollIntoView(element, guiseScooped.driver);
     mouseListener.beforeClickOn(element, guiseScooped.driver);
@@ -97,43 +96,48 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     element.click();
   }
 
-  public void findAndClickCourseItemByMinMaxCost(String string){
+  public void findAndClickCourseItemByMinMaxCost(String string) {
     Map<WebElement, Integer> courseAndPrice = new HashMap<WebElement, Integer>();
-    courseItemsList.forEach(e->{
-      int coursePrice = getCoursePrice(getCourseUrl(e.getAttribute("href")));
-      if (coursePrice != -100) courseAndPrice.put(e,coursePrice);
 
-      int price =0;
-      switch (string){
-        case "дорогой":
-          price = Collections.max(courseAndPrice.values());
-          break;
-        case "дешевой":
-          price = Collections.min(courseAndPrice.values());
-          break;
-      }
-      int finalPrice = price;
-      courseAndPrice.entrySet().stream()
-          .filter(r -> r.getValue() == finalPrice)
-          .findFirst().get().getKey().click();
+    courseItemsList.forEach(e -> {
+      int coursePrice = getCoursePrice(getCourseUrl(e.getAttribute("href")));
+      if (coursePrice != -100) courseAndPrice.put(e, coursePrice);
     });
+    int price = 0;
+    switch (string) {
+      case "дорогой":
+        price = Collections.max(courseAndPrice.values());
+        break;
+      case "дешевой":
+        price = Collections.min(courseAndPrice.values());
+        break;
+    }
+    int finalPrice = price;
+
+    WebElement resItem = courseAndPrice.entrySet().stream()
+        .filter(r -> r.getValue() == finalPrice)
+        .findFirst().get().getKey();
+    System.out.println("Выбран курс: " + resItem.getText().replaceAll("Рассрочка|Выгодное предложение|Успеть!", ""));
+    moveAndClickElement(resItem);
   }
 
 
   private String getCourseUrl(String href) {
-    if (href.startsWith("/"))
-      return guiseScooped.driver.getCurrentUrl() + href.substring(1);
+    if (href.contains("promo"))
+      return href.replace("promo", "lessons");
     else
       return href;
   }
-  private int getCoursePrice(String url){
+
+  private int getCoursePrice(String url) {
     try {
       Document coursePage = Jsoup.connect(url).get();
-      Elements element = coursePage.selectXpath("//div[contains(./p, 'Стоимость обучения')]/div/div");
-      return  Integer.parseInt(element.text());
-    }
-    catch (Exception ignored){
-      System.out.println("Не удалсь получить стоимость по ссылке" + url);
+      Elements element = coursePage.selectXpath("//div[@class='course-bottom-bar-meta__value']/nobr | //div[./span[contains(text(),'/мес')]] | //div[./p[text()='Стоимость обучения']/following::div]/div | (//div[./div[text()='Стоимость обучения']]/following::div/div[contains(text(),'₽')])[1]");
+      String res = element.text().replaceAll("[^0-9]", "");
+      System.out.println("Стоимость по ссылке: " + url + " = " + Integer.parseInt(res));
+      return Integer.parseInt(res);
+    } catch (Exception ignored) {
+      System.err.println("Не найдена стоимость по ссылке: " + url);
     }
     return -100;
   }

@@ -1,13 +1,11 @@
 package com.otus.pageobject;
 
-import com.google.inject.Inject;
 import com.otus.actions.BaseActions;
+import com.google.inject.Inject;
 import com.otus.di.GuiseScooped;
 import com.otus.waiters.BaseWaiters;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 

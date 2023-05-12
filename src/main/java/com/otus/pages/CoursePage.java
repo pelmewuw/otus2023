@@ -19,7 +19,8 @@ public class CoursePage extends BasePage<CoursePage> {
   @FindBy(tagName = "h1")
   public WebElement courseHeader;
   public void coursePageIsOpen(){
-    Assertions.assertFalse(courseHeader.getText().equals("Авторские онлайн‑курсы для профессионалов"));
+    String courseName=courseHeader.getText();
+    Assertions.assertNotEquals("Авторские онлайн‑курсы для профессионалов", courseName);
   }
 
 

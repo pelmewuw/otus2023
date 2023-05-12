@@ -20,9 +20,9 @@
 
       Примеры:
       |course_name|header|
-      |Team Lead|Team Lead|
+      |Бизнес-анализ и системный|Бизнес-анализ и системный|
       |Специализация С#|C# Developer|
-      |PHP Developer. Professional|PHP Developer. Professional|
+      |Специализация сетевой инженер|Network Engineer|
 
 
     Структура сценария: Клик на плитку дорого\дешевого курса

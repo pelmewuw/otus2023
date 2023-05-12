@@ -3,7 +3,6 @@ package com.otus.pages;
 import com.google.inject.Inject;
 import com.otus.annotations.Path;
 import com.otus.di.GuiseScooped;
-import org.openqa.selenium.WebDriver;
 
 @Path("/courses")
 //@Urls(
