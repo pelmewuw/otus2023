@@ -79,7 +79,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     String result = year + "-" + month + "-" + (day > 9 ? day : "0" + day);
 
-    return LocalDate.parse(result, DateTimeFormatter.ofPattern("uuuu-MMM-dd").withLocale(new Locale("ru", "RU")));
+    return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMM-dd").withLocale(new Locale("ru", "RU")));
 
   }
 
