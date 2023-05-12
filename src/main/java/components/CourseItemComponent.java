@@ -2,12 +2,13 @@ package components;
 
 import listeners.MouseListener;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     super(driver);
   }
 
-  private String courseNameTemplateLocator = "//div[contains(text(),'%s')]";
+  private String courseNameTemplateLocator = "//div[@class='container container-lessons']//div[contains(text(),'%s')]";
 
 
   public MainPage findAndClickCourseByName(String courseName) {
@@ -29,8 +30,8 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     try {
       moveAndClickElement($(By.xpath(locator)));
       return new MainPage(driver);
-    } catch (UnsupportedOperationException e) {
-      throw new UnsupportedOperationException("Курс: \"" + courseName + "\" не найден");
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("Курс: \"" + courseName + "\" не найден");
     }
 
   }
@@ -77,7 +78,6 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     }
 
     String result = year + "-" + month + "-" + (day > 9 ? day : "0" + day);
-
 
     return LocalDate.parse(result, DateTimeFormatter.ofPattern("uuuu-MMM-dd").withLocale(new Locale("ru", "RU")));
 

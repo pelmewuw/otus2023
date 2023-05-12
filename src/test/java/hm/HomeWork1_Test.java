@@ -31,8 +31,8 @@ public class HomeWork1_Test {
         .open();
 
     new CourseItemComponent(driver)
-        .findAndClickCourseByName("Team Lead")
-        .headerShouldBeSameAs("Team Lead");
+        .findAndClickCourseByName("Специализация Python")
+        .headerShouldBeSameAs("Python Developer");
   }
 
   @Test
