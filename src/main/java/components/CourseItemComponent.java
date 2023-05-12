@@ -67,7 +67,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     Pattern dayPattern = Pattern.compile("[0-3]?[0-9]");
     Matcher dayMatcher = dayPattern.matcher(stringDate);
-    Pattern monthPattern = Pattern.compile("\\b(янв)|(фев)|(мар)|(апр)|(мая)|(июн)|(июл)|(авг)|(сен)|(окт)|(ноя)|(дек)");
+    Pattern monthPattern = Pattern.compile("января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря");
     Matcher monthMatcher = monthPattern.matcher(stringDate);
 
     if (dayMatcher.find()) {
@@ -79,7 +79,7 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     String result = year + "-" + month + "-" + (day > 9 ? day : "0" + day);
 
-    return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMM-dd").withLocale(new Locale("ru", "RU")));
+    return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMMM-dd").withLocale(new Locale("ru", "RUS")));
 
   }
 
