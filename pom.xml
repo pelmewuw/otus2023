@@ -13,29 +13,13 @@
         <webdriver.manager.version>4.2.0</webdriver.manager.version>
         <selenium.java.version>3.141.59</selenium.java.version>
         <junit.version>5.8.1</junit.version>
-        <faker.version>1.0.1</faker.version>
-
-        <forkCount>1</forkCount>
-        <reuseForks>true</reuseForks>
-        <parallel>all</parallel>
-        <perCoreThreadCount>false</perCoreThreadCount>
-        <useUnlimitedThreads>true</useUnlimitedThreads>
-        <thread.count>32</thread.count>
-
+        <surefire.plugin.version>2.22.2</surefire.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <cucumber.version>5.5.0</cucumber.version>
         <guice.version>5.1.0</guice.version>
 
-        <browser>chrome</browser>
-        <browser.version>113.0.5672.63</browser.version>
-        <webdriver.base.url>https://otus.ru</webdriver.base.url>
-        <test.project.language>RU</test.project.language>
-
         <webdriver.timeouts.implicitlywait>5000</webdriver.timeouts.implicitlywait>
-
-        <surefire.plugin.version>2.22.2</surefire.plugin.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-
-        <aspectj.version>1.9.6</aspectj.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -58,11 +42,6 @@
             <version>${junit.version}</version>
             <type>pom</type>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>${faker.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -94,7 +73,7 @@
             <!-- jsoup HTML parser library @ https://jsoup.org/ -->
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.15.3</version>
+            <version>${jsoup.version}</version>
         </dependency>
     </dependencies>
 
