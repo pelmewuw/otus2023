@@ -68,11 +68,13 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
 
     int day = 1;
     int year = LocalDate.now().getYear();
-    String month = "";
+    String month = "января";
 
     Pattern dayPattern = Pattern.compile("[0-3]?[0-9]");
     Matcher dayMatcher = dayPattern.matcher(stringDate);
-    Pattern monthPattern = Pattern.compile("января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря");
+    String ruMonth="января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря";
+    String engMonth="January|February|March|April|May|June|July|August|September|October|November|December";
+    Pattern monthPattern = Pattern.compile(ruMonth+engMonth);
     Matcher monthMatcher = monthPattern.matcher(stringDate);
 
     if (dayMatcher.find()) {
@@ -83,8 +85,9 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     }
 
     String result = year + "-" + month + "-" + (day > 9 ? day : "0" + day);
-
-    return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMMM-dd").withLocale(new Locale("ru", "RUS")));
+    if (ruMonth.contains(month.toLowerCase(Locale.ROOT))) {
+      return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMMM-dd").withLocale(new Locale("ru", "RUS")));
+    } else return LocalDate.parse(result, DateTimeFormatter.ofPattern("yyyy-MMMM-dd").withLocale(new Locale("en", "EN")));
 
   }
 
@@ -129,10 +132,13 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
       return href;
   }
 
+  String nobrElementLocator="//div[@class='course-bottom-bar-meta__value']/nobr";
+  String priceElementLocator="//div[./span[contains(text(),'/мес')]] | //div[./p[text()='Стоимость обучения']/following::div]/div";
+
   private int getCoursePrice(String url) {
     try {
       Document coursePage = Jsoup.connect(url).get();
-      Elements element = coursePage.selectXpath("//div[@class='course-bottom-bar-meta__value']/nobr | //div[./span[contains(text(),'/мес')]] | //div[./p[text()='Стоимость обучения']/following::div]/div | (//div[./div[text()='Стоимость обучения']]/following::div/div[contains(text(),'₽')])[1]");
+      Elements element = coursePage.selectXpath(nobrElementLocator+"|(//div[./div[text()='Стоимость обучения']]/following::div/div[contains(text(),'₽')])[1]|"+priceElementLocator);
       String res = element.text().replaceAll("[^0-9]", "");
       System.out.println("Стоимость по ссылке: " + url + " = " + Integer.parseInt(res));
       return Integer.parseInt(res);
