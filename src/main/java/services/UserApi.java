@@ -7,7 +7,6 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 
-import static data.UserData.USER_USERNAME;
 import static io.restassured.RestAssured.given;
 
 public class UserApi {
