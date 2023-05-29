@@ -1,21 +1,18 @@
-package user.createUser;
+package user.create;
+
+import static data.UserData.*;
 
 import dto.UserDTO;
 import dto.UserResponseDTO;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.ValidatableResponse;
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import services.UserApi;
 
-import static data.UserData.*;
-import static org.hamcrest.Matchers.equalTo;
-
-public class createUserTest {
+public class CreateUserTest {
 
   @Test
-  public void checkCreateUser(){
+  public void checkCreateUser() {
     UserApi userApi = new UserApi();
 
     // Создаем юзера с заполненными всеми полями
@@ -31,17 +28,10 @@ public class createUserTest {
         .build();
 
     // Проверяем результат выполнения создания(статус код, валидация по схеме, возвращенные поля)
-    userApi.createUser(user)
-        .statusCode(HttpStatus.SC_OK)
-        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema/CreateUser.json"))
-        .body("code", equalTo(200))
-        .body("type", equalTo("unknown"))
-        .body("message", equalTo(USER_ID.toString()));
+    userApi.checkCreateResponse(userApi.createUser(user));
 
     // Получаем созданного юзера по username
-    ValidatableResponse response = userApi.getUser(USER_USERNAME)
-        .statusCode(HttpStatus.SC_OK);
-
+    ValidatableResponse response =  userApi.checkGetResponse(userApi.getUser(USER_USERNAME));
     UserResponseDTO userResponseDTO = response.extract().body().as(UserResponseDTO.class);
 
     // Проверяем возращенные поля на то, что заполнены введенными значениями
@@ -58,38 +48,32 @@ public class createUserTest {
   }
 
   @Test
-  public void checkCreateUserOnlyUserName(){
+  public void checkCreateUserOnlyUserName() {
     UserApi userApi = new UserApi();
-    String username = USER_USERNAME+"test2";
+    String username = USER_USERNAME + "test2";
     // Создаем юзера с заполнгением только поля username
     UserDTO user = UserDTO.builder()
         .username(username)
         .build();
 
     // Проверяем результат выполнения создания(статус код, валидация по схеме, возвращенные поля)
-    userApi.createUser(user)
-        .statusCode(HttpStatus.SC_OK)
-        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema/CreateUser.json"))
-        .body("code", equalTo(200))
-        .body("type", equalTo("unknown"));
+    userApi.checkCreateResponse(userApi.createUser(user));
 
-  // Получаем созданного юзера по username
-  ValidatableResponse response = userApi.getUser(username)
-      .statusCode(HttpStatus.SC_OK);
-
+    // Получаем созданного юзера по username
+    ValidatableResponse response = userApi.checkGetResponse(userApi.getUser(username));
     UserResponseDTO userResponseDTO = response.extract().body().as(UserResponseDTO.class);
 
-  // Проверяем возращенные поля на то, что заполнено только username и id, в остальных полях дефолтные значения
+    // Проверяем возращенные поля на то, что заполнено только username и id, в остальных полях дефолтные значения
     Assertions.assertAll("Check create user",
-      () -> Assertions.assertNotNull( userResponseDTO.getId(), "Incorrect ID"),
-      () -> Assertions.assertNull(userResponseDTO.getFirstName(), "Incorrect FIRST_NAME"),
-      () -> Assertions.assertNull(userResponseDTO.getLastName(), "Incorrect LAST_NAME"),
-      () -> Assertions.assertNull(userResponseDTO.getPassword(), "Incorrect PASSWORD"),
-      () -> Assertions.assertEquals(0,userResponseDTO.getUserStatus(), "Incorrect USER_STATUS"),
-      () -> Assertions.assertNull(userResponseDTO.getPhone(), "Incorrect PHONE"),
-      () -> Assertions.assertNull(userResponseDTO.getEmail(), "Incorrect EMAIL"),
-      () -> Assertions.assertEquals(username, userResponseDTO.getUsername(), "Incorrect USERNAME")
-      );
+        () -> Assertions.assertNotNull(userResponseDTO.getId(), "Incorrect ID"),
+        () -> Assertions.assertNull(userResponseDTO.getFirstName(), "Incorrect FIRST_NAME"),
+        () -> Assertions.assertNull(userResponseDTO.getLastName(), "Incorrect LAST_NAME"),
+        () -> Assertions.assertNull(userResponseDTO.getPassword(), "Incorrect PASSWORD"),
+        () -> Assertions.assertEquals(0, userResponseDTO.getUserStatus(), "Incorrect USER_STATUS"),
+        () -> Assertions.assertNull(userResponseDTO.getPhone(), "Incorrect PHONE"),
+        () -> Assertions.assertNull(userResponseDTO.getEmail(), "Incorrect EMAIL"),
+        () -> Assertions.assertEquals(username, userResponseDTO.getUsername(), "Incorrect USERNAME")
+    );
 
   }
 }
