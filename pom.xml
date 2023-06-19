@@ -20,10 +20,10 @@
         <parallel>all</parallel>
         <perCoreThreadCount>false</perCoreThreadCount>
         <useUnlimitedThreads>true</useUnlimitedThreads>
-        <thread.count>32</thread.count>
+        <thread.count>3</thread.count>
 
         <browser>chrome</browser>
-        <browser.version>113.0.5672.63</browser.version>
+        <browser.version>112.0</browser.version>
         <webdriver.base.url>https://otus.ru</webdriver.base.url>
         <test.project.language>RU</test.project.language>
 
@@ -68,15 +68,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <webdriver.base.url>https://otus.ru</webdriver.base.url>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -90,14 +81,6 @@
                     <perCoreThreadCount>${perCoreThreadCount}</perCoreThreadCount>
                     <useUnlimitedThreads>${useUnlimitedThreads}</useUnlimitedThreads>
                     <threadCountMethods>${thread.count}</threadCountMethods>
-
-                    <!--          <systemProperties>-->
-                    <!--            <property>-->
-                    <!--              <name>junit.jupiter.extensions.autodetection.enabled</name>-->
-                    <!--              <value>true</value>-->
-                    <!--            </property>-->
-                    <!--          </systemProperties>-->
-
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                         <browser.version>${browser.version}</browser.version>

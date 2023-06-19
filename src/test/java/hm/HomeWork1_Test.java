@@ -14,16 +14,32 @@ package hm;
 import annotations.Driver;
 import components.CourseItemComponent;
 import extensions.UIExtension;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.MainPage;
+
+import java.net.MalformedURLException;
+import java.net.URI;
 
 @ExtendWith(UIExtension.class)
 public class HomeWork1_Test {
 
   @Driver
   private WebDriver driver;
+
+  @BeforeEach
+  public void init() throws MalformedURLException {
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+    capabilities.setCapability(CapabilityType.BROWSER_NAME, System.getProperty("browser", "chrome"));
+    capabilities.setCapability(CapabilityType.BROWSER_VERSION, System.getProperty("browser.version", "112.0"));
+    capabilities.setCapability("enableVNC", true); //для просмотра сессии
+    driver = new RemoteWebDriver(URI.create("http://127.0.0.1:8080/wd/hub").toURL(), capabilities);
+  }
 
   @Test
   public void selectCourseByName() {
