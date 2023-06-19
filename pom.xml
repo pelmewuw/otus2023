@@ -30,7 +30,7 @@
         <useUnlimitedThreads>true</useUnlimitedThreads>
         <thread.count>3</thread.count>
 
-        <browser>browser>chrome</browser>
+        <browser>chrome</browser>
         <browser.version>112.0</browser.version>
         <webdriver.base.url>https://otus.ru</webdriver.base.url>
         <test.project.language>RU</test.project.language>
