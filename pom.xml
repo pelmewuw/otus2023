@@ -23,6 +23,18 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <forkCount>1</forkCount>
+        <reuseForks>true</reuseForks>
+        <parallel>all</parallel>
+        <perCoreThreadCount>false</perCoreThreadCount>
+        <useUnlimitedThreads>true</useUnlimitedThreads>
+        <thread.count>3</thread.count>
+
+        <browser>browser>chrome</browser>
+        <browser.version>112.0</browser.version>
+        <webdriver.base.url>https://otus.ru</webdriver.base.url>
+        <test.project.language>RU</test.project.language>
+        <aspectj.version>1.9.6</aspectj.version>
     </properties>
 
     <dependencies>
@@ -85,11 +97,42 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
-                    <systemProperties>
-                        <browser>chrome</browser>
-                        <base.url>https://otus.ru</base.url>
-                    </systemProperties>
+                    <forkCount>${forkCount}</forkCount>
+                    <reuseForks>${reuseForks}</reuseForks>
+                    <parallel>${parallel}</parallel>
+                    <perCoreThreadCount>${perCoreThreadCount}</perCoreThreadCount>
+                    <useUnlimitedThreads>${useUnlimitedThreads}</useUnlimitedThreads>
+                    <threadCountMethods>${thread.count}</threadCountMethods>
+                    <systemPropertyVariables>
+                        <browser>${browser}</browser>
+                        <browser.version>${browser.version}</browser.version>
+                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
+                        </webdriver.timeouts.implicitlywait>
+                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
+                        <test.project.status>test</test.project.status>
+                        <test.project.language>${test.project.language}</test.project.language>
+                    </systemPropertyVariables>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-api</artifactId>
+                        <version>5.8.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.8.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
