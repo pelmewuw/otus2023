@@ -23,9 +23,9 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <forkCount>1</forkCount>
+        <forkCount>3</forkCount>
         <reuseForks>true</reuseForks>
-        <parallel>all</parallel>
+        <parallel>classesAndMethods</parallel>
         <perCoreThreadCount>false</perCoreThreadCount>
         <useUnlimitedThreads>true</useUnlimitedThreads>
         <thread.count>3</thread.count>
@@ -97,42 +97,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
-                    <forkCount>${forkCount}</forkCount>
-                    <reuseForks>${reuseForks}</reuseForks>
-                    <parallel>${parallel}</parallel>
-                    <perCoreThreadCount>${perCoreThreadCount}</perCoreThreadCount>
-                    <useUnlimitedThreads>${useUnlimitedThreads}</useUnlimitedThreads>
-                    <threadCountMethods>${thread.count}</threadCountMethods>
+                    <parallel>methods</parallel>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <includes>
+                        <include>Runner_Test.class</include>
+                    </includes>
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                         <browser.version>${browser.version}</browser.version>
-                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
-                        </webdriver.timeouts.implicitlywait>
+                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}</webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                         <test.project.status>test</test.project.status>
                         <test.project.language>${test.project.language}</test.project.language>
                     </systemPropertyVariables>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-api</artifactId>
-                        <version>5.8.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.8.1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
