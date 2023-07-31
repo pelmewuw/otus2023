@@ -1,6 +1,5 @@
 timeout(180) {
     node('maven') {
-        timestamp {
             wrap([$class: 'BuildUser']){
                 summary = """|<b>Owner:</b> ${env.BUILD_USER}
                             |<b>Branch:</b> ${BRANCH}""".stripMargin()
@@ -10,7 +9,6 @@ timeout(180) {
             yaml_object = readYaml $YAML_CONFIG
             for (key in params.keySet()) {
                 System.setProperty(key, params[key])
-            }
             }
             stage('Checkout') {
                 checkout scm
