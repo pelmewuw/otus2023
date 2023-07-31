@@ -16,7 +16,7 @@ public class CoursePage extends BasePage<CoursePage> {
   }
 
 
-  @FindBy(tagName = "h1")
+  @FindBy(xpath = "//h1")
   public WebElement courseHeader;
   public void coursePageIsOpen(){
     String courseName=courseHeader.getText();

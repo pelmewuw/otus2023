@@ -25,10 +25,10 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     super(guiseScooped);
   }
 
-  @FindBy(css = ".lessons__new-item")
+  @FindBy(xpath = "//h5//ancestor::a")
   private List<WebElement> courseItemsList;
 
-  private String courseNameTemplateLocator = "//div[contains(text(),'%s')]";
+  private String courseNameTemplateLocator = "//h5[contains(text(),'%s')]";
 
 
   public MainPage findAndClickCourseByName(String courseName) {
@@ -43,10 +43,11 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
   }
 
 
-  @FindBy(css = ".lessons__new-item-start")
+  @FindBy(xpath = "//span[contains(text(),'С ')]")
   private List<WebElement> courseDateList;
 
-  public void findAndClickCourseByDate(String earlyLast) {
+  public void findAndClickCourseByDate(String earlyLast) throws InterruptedException {
+    Thread.sleep(100);
     WebElement el = courseDateList.stream()
         .reduce((e1, e2) -> {
           LocalDate date1 = getDateFromString(e1.getText());

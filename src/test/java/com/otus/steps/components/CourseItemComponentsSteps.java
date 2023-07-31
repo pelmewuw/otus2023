@@ -11,7 +11,7 @@ public class CourseItemComponentsSteps {
   public CourseItemComponent courseItemComponent;
 
   @Если("^Кликнуть на (.*) плитку курса$")
-  public void clickLastEarlyCourseItem(String earlyLast) {
+  public void clickLastEarlyCourseItem(String earlyLast) throws InterruptedException {
     courseItemComponent.findAndClickCourseByDate(earlyLast);
   }
 
