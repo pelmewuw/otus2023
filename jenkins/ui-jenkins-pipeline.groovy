@@ -29,25 +29,5 @@ timeout(180) {
                     results: [[path: 'allure-results']]
             ])
         }
-        stage('Publish notification in telegram') {
-            lines = readFile './allure-results/export/influxDbData.txt'
-            def message = "============= UI REPORT ============"
-            for (line in lines) {
-                def matcher = line =~ /.*(\w+=\d+).*/
-                message += line
-            }
-
-            def connection = null
-
-            withCredentials([sring(name: 'telegram_token', envVar: 'TELEGRAM_TOKEN')]) {
-                def url = "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage?"
-                connection = new URL(url).openConnection() as HttpURLConnection
-                connection.setProperty("token", $TELEGRAM_TOKEN)
-                connection.setProperty("text", message)
-                connection.setProperty('chat_id': '-918019592')
-            }
-            connection.setRequestMethod('POST')
-            connection.setDoOutput(true)
-        }
     }
 }
