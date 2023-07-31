@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,7 +21,8 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
     super(driver);
   }
 
-  private String courseNameTemplateLocator = "//div[@class='container container-lessons']//div[contains(text(),'%s')]";
+  //  private String courseNameTemplateLocator = "//div[@class='container container-lessons']//div[contains(text(),'%s')]";
+  private String courseNameTemplateLocator = "//h5[contains(text(),'%s')]";
 
 
   public MainPage findAndClickCourseByName(String courseName) {
@@ -37,7 +37,8 @@ public class CourseItemComponent extends BaseComponent<CourseItemComponent> {
   }
 
 
-  @FindBy(css = ".lessons__new-item-start")
+  //  @FindBy(css = ".lessons__new-item-start")
+  @FindBy(xpath = "//span[contains(text(),'С ')]")
   private List<WebElement> courseDateList;
 
   public WebElement findAndClickCourseByDate(String earlyLast) {

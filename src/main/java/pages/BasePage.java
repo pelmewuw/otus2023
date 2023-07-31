@@ -17,7 +17,7 @@ public abstract class BasePage<T> extends PageObject<T> {
 
   private String baseUrl = System.getProperty("webdriver.base.url", "https://otus.ru");
 
-  @FindBy(tagName = "h1")
+  @FindBy(xpath = "//h1[1]")
   private WebElement header;
 
   public T headerShouldBeSameAs(String header) {

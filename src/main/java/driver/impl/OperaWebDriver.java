@@ -14,7 +14,7 @@ import java.util.logging.Level;
 
 public class OperaWebDriver implements IDriver {
   @Override
-  public WebDriver newDriver() {
+  public RemoteWebDriver newDriver() {
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--no-sandbox");
     operaOptions.addArguments("--no-first-run");

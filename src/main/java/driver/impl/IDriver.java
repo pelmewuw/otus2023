@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.Config;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,7 +14,7 @@ public interface IDriver {
   String REMOTE_URL = System.getProperty("webdriver.remote.url");
   //  boolean HEADLESS = Boolean.valueOf(System.getProperty("webdriver.headless"));
 
-  public WebDriver newDriver();
+  public RemoteWebDriver newDriver();
 
   default URL getRemoteUrl() {
     try {
@@ -27,7 +28,7 @@ public interface IDriver {
     Config wdmConfig = WebDriverManager.globalConfig();
     wdmConfig.setAvoidBrowserDetection(true);
 
-    String browserVersion = System.getProperty("browser.version", "");
+    String browserVersion = System.getProperty("browser.version", "114");
 
     if (!browserVersion.isEmpty()) {
       switch (driverType) {
@@ -44,7 +45,6 @@ public interface IDriver {
           throw new DriverTypeNotSupported(driverType.name());
       }
     }
-
     WebDriverManager.getInstance(driverType).setup();
   }
 }

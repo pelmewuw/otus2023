@@ -15,7 +15,7 @@ import java.util.logging.Level;
 public class ChromeWebDriver implements IDriver {
 
   @Override
-  public WebDriver newDriver() {
+  public RemoteWebDriver newDriver() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.addArguments("--no-sandbox");
     chromeOptions.addArguments("--no-first-run");

@@ -14,7 +14,7 @@ import java.util.logging.Level;
 
 public class FirefoxWebDriver implements IDriver {
   @Override
-  public WebDriver newDriver() {
+  public RemoteWebDriver newDriver() {
     FirefoxOptions firefoxOptions = new FirefoxOptions();
     firefoxOptions.addArguments("--no-sandbox");
     firefoxOptions.addArguments("--no-first-run");
