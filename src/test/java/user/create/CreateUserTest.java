@@ -4,14 +4,17 @@ import static data.UserData.*;
 
 import dto.UserDTO;
 import dto.UserResponseDTO;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import services.UserApi;
 
 public class CreateUserTest {
 
   @Test
+  @DisplayName("Проверка создания пользователя со всем заполненными полями")
   public void checkCreateUser() {
     UserApi userApi = new UserApi();
 
@@ -48,10 +51,11 @@ public class CreateUserTest {
   }
 
   @Test
+  @DisplayName("Проверка создания пользователя, заполнен только user_name")
   public void checkCreateUserOnlyUserName() {
     UserApi userApi = new UserApi();
     String username = USER_USERNAME + "test2";
-    // Создаем юзера с заполнгением только поля username
+    // Создаем юзера с заполнением только поля username
     UserDTO user = UserDTO.builder()
         .username(username)
         .build();

@@ -3,12 +3,14 @@ package user.delete;
 import static data.UserData.USER_USERNAME;
 
 import dto.UserDTO;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import services.UserApi;
 
 public class DeleteUserTest {
 
   @Test
+  @DisplayName("Проверка удаления пользователя по валидному username")
   public void checkDeleteUserValidUsername() {
     //Проверка удаления пользователя по валидному username
 
@@ -34,6 +36,7 @@ public class DeleteUserTest {
 
 
   @Test
+  @DisplayName("Проверка удаления пользователя по ненайденному username")
   public void checkDeleteUserNotFoundUsername() {
     //Проверка удаления пользователя по ненайденному username
     UserApi userApi = new UserApi();

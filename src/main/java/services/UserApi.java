@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 import dto.UserDTO;
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.ValidatableResponse;
@@ -22,6 +23,7 @@ public class UserApi {
         .contentType(ContentType.JSON);
   }
 
+  @Step("Создать пользователя")
   public ValidatableResponse createUser(UserDTO userDTO) {
     return given(spec)
         .log().all()
@@ -31,7 +33,7 @@ public class UserApi {
         .then()
         .log().all();
   }
-
+  @Step("Получить пользователя")
   public ValidatableResponse getUser(String username) {
     return given(spec)
         .log().all()
@@ -41,6 +43,7 @@ public class UserApi {
         .log().all();
   }
 
+  @Step("Удалить пользователя")
   public ValidatableResponse deleteUser(String username) {
     return given(spec)
         .log().all()
@@ -50,6 +53,7 @@ public class UserApi {
         .log().all();
   }
 
+  @Step("Проверка ответа создания")
   public ValidatableResponse checkCreateResponse(ValidatableResponse response){
     return response
         .statusCode(HttpStatus.SC_OK)
@@ -57,12 +61,13 @@ public class UserApi {
         .body("code", equalTo(200))
         .body("type", equalTo("unknown"));
   }
-
+  @Step("Проверка ответа получения")
   public ValidatableResponse checkGetResponse(ValidatableResponse response){
     return response
         .statusCode(HttpStatus.SC_OK)
         .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema/GetUser.json"));
   }
+  @Step("Проверка ответа not found")
   public ValidatableResponse checkNotFoundGetResponse(ValidatableResponse response){
     return response
         .statusCode(HttpStatus.SC_NOT_FOUND)
@@ -70,7 +75,7 @@ public class UserApi {
         .body("type", equalTo("error"))
         .body("message", equalTo("User not found"));
   }
-
+  @Step("Проверка ответаудаления")
   public ValidatableResponse checkDeleteResponse(ValidatableResponse response){
     return response
         .statusCode(HttpStatus.SC_OK)
@@ -79,6 +84,7 @@ public class UserApi {
         .body("type", equalTo("unknown"));
   }
 
+  @Step("Проверка ответа not found")
   public ValidatableResponse checkNotFoundDeleteResponse(ValidatableResponse response){
     return response
         .statusCode(HttpStatus.SC_NOT_FOUND);
