@@ -22,7 +22,7 @@ public class AppiumSelenideDriver implements WebDriverProvider {
     options.setDeviceName(System.getProperty("device_name","otus"));
     options.setPlatformVersion(System.getProperty("platform_version","5.1"));
 
-    //options.setApp(System.getProperty("user.dir") + "\\src\\app\\Andy-253457-d7ad79.apk");
+    //options.setApp(System.getProperty("user.dir") + "\\app\\Andy-253457-d7ad79.apk");
     options.setAppPackage("com.pyankoff.andy");
     options.setAppActivity(".MainActivity");
 

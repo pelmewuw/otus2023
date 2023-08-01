@@ -6,6 +6,7 @@ import data.MenuItemData;
 import extensions.AppiumExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
@@ -14,7 +15,7 @@ import pages.*;
 public class Andy_Test {
 
   @BeforeEach
-  //Пропуск начальной страницы и алерта
+  @DisplayName("Пропуск начальной страницы и алерта")
   public void startPageCloseIfDisplayed() {
     StartPage startPage = new StartPage();
     startPage.open();
@@ -30,12 +31,13 @@ public class Andy_Test {
   }
 
   @AfterEach
+  @DisplayName("Закрытие драйвера")
   public void tearDown() {
     Selenide.closeWebDriver();
   }
 
   @Test
-  //Проверка отображения элементов меню
+  @DisplayName("Проверка отображения элементов меню")
   public void menuItemsVisibleTest() {
     new MenuComponents()
         .menuItemShouldBeVisible(MenuItemData.CHAT_ITEM)
@@ -45,7 +47,7 @@ public class Andy_Test {
   }
 
   @Test
-  //Проверка открытия страниц
+  @DisplayName("Проверка открытия страниц")
   public void menuItemOpenTest(){
     new MenuComponents()
         .menuItemClick(MenuItemData.CHAT_ITEM);
@@ -69,7 +71,7 @@ public class Andy_Test {
   }
 
   @Test
-  //Проверка запуска упражнений
+  @DisplayName("Проверка запуска упражнений")
   public void startExerciseTest(){
     new MenuComponents()
         .menuItemClick(MenuItemData.EXERCISE_ITEM);
@@ -80,7 +82,7 @@ public class Andy_Test {
   }
 
   @Test
-  //Проверка запуска упражнений
+  @DisplayName("Проверка запуска упражнений грамматики")
   public void startGrammarTest(){
     new MenuComponents()
         .menuItemClick(MenuItemData.GRAMMAR_ITEM);
