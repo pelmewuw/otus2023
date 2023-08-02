@@ -28,7 +28,7 @@ public class AppiumSelenideDriver implements WebDriverProvider {
 
 
     try {
-      return new AndroidDriver(new URL(System.getProperty("base_url","http://127.0.0.1:4723/wd/hub")), options);
+      return new AndroidDriver(new URL(System.getProperty("base_url","http://192.168.0.136:4723/wd/hub")), options);
     } catch (MalformedURLException e) {
       throw new RuntimeException(e);
     }

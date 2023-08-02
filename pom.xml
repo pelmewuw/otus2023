@@ -93,7 +93,7 @@
                 <version>${surefire.plugin.version}</version>
                 <configuration>
                     <systemProperties>
-                        <base_url>http://127.0.0.1:4723/wd/hub</base_url>
+                        <base_url>http://192.168.0.136:4723/wd/hub</base_url>
                         <platform_name>Android</platform_name>
                         <device_name>otus</device_name>
                         <platform_version>5.1</platform_version>
