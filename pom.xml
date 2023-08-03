@@ -73,7 +73,7 @@
 				<version>${surefire.plugin.version}</version>
 				<configuration>
 					<systemProperties>
-						<base.url>http://127.0.0.1:8080</base.url>
+						<base.url>http://127.0.0.1:1212</base.url>
 					</systemProperties>
 				</configuration>
 			</plugin>
