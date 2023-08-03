@@ -18,6 +18,6 @@ public class GuiseScooped {
     capabilities.setCapability(CapabilityType.BROWSER_NAME, browserName);
     capabilities.setCapability(CapabilityType.BROWSER_VERSION, System.getProperty("browser.version", "112.0"));
     capabilities.setCapability("enableVNC", true); //для просмотра сессии
-    return new RemoteWebDriver(URI.create("http://127.0.0.1:8080/wd/hub").toURL(), capabilities);
+    return new RemoteWebDriver(URI.create(System.getProperty("grid.url","http://127.0.0.1:8080/wd/hub")).toURL(), capabilities);
   }
 }

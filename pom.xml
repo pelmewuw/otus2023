@@ -34,6 +34,7 @@
         <browser>chrome</browser>
         <browser.version>112.0</browser.version>
         <webdriver.base.url>https://otus.ru</webdriver.base.url>
+        <grid.url>http://127.0.0.1:8080/wd/hub</grid.url>
         <test.project.language>RU</test.project.language>
         <aspectj.version>1.9.6</aspectj.version>
     </properties>
